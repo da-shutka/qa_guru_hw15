@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.dpqa'
+version = '1.0-SNAPSHOT'
+
+def
+        unitVersion = "5.10.2",
+        restAssuredVersion = "5.4.0";
+
+
+repositories {
+    mavenCentral()
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    testImplementation(
+            "org.junit.jupiter:junit-jupiter:$unitVersion",
+            "org.slf4j:slf4j-simple:2.0.13",
+            "io.rest-assured:rest-assured:$restAssuredVersion"
+    )
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
